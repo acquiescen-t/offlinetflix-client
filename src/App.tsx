@@ -4,6 +4,7 @@ import Grid from "./components/Grid";
 import "./styles/App.css";
 import { createContext, useEffect, useState } from "react";
 declare var bootstrap: any;
+
 export const ThemeContext = createContext({});
 
 function App() {
@@ -30,21 +31,9 @@ function App() {
 
   return (
     <>
-      <div className="container">
-        <div className="row">
-          <div className="col-12">
-            <button
-              type="button"
-              className="btn btn-lg btn-danger"
-              data-bs-toggle="popover"
-              title="Popover title"
-              data-bs-content="And here's some amazing content. It's very engaging. Right?"
-            >
-              Click to toggle popover
-            </button>
-          </div>
-        </div>
-      </div>
+      <ThemeContext.Provider value={{ theme, setTheme }}>
+        <NavBar theme={theme} setTheme={toggleTheme}></NavBar>
+      </ThemeContext.Provider>
     </>
   );
 }
