@@ -1,0 +1,75 @@
+.main-page {
+    width: 100vw;
+    min-height: 100vh;
+}
+
+.light {
+    background: #FBAF3F;
+}
+
+.dark {
+    background: #181818;
+}
+
+.search-bar {
+    display: flex;
+    align-items: center;
+    background: transparent;
+    padding: 10px 20px;
+    border-radius: 50px;
+}
+
+.search-bar input {
+    padding: 6px;
+    background: transparent;
+    border: #242424;
+    outline:#242424;
+    color: #575757;
+    font-size: 18px;
+}
+.search-bar input::placeholder {
+    color: #787878;
+}
+
+.search-bar img {
+    width: 20px;
+    cursor: pointer;
+}
+
+.toggle-icon {
+    width: 35px;
+    margin: 30px;
+}
+
+.nav-item {
+    font-size: 24px;
+    padding: 30px;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+}
+
+.toggle-light-dark {
+    cursor: pointer;
+}
+
+.card img {
+    width: 100%
+}
+
+.card-body a {
+    font-family: "Bebas Neue", sans-serif;
+    font-weight: 500;
+    font-style: normal;
+    text-decoration: none;
+}
+
+.card-title {
+    text-align: center;
+}
+
+.genre-list {
+    border: 1px solid blue;
+}
+
+.genre-list-group {
+    border: 1px solid red;
+}

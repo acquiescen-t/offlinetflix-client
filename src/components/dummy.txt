@@ -1,0 +1,26 @@
+"Psychological Horror",
+                "Psychological Thriller",
+                "Drama",
+                "Fantasy",
+                "Horror",
+                "Mystery",
+                "Science Fiction",
+                "Thriller",
+
+
+<ul className="list-group">
+          {genres.map((genre, index) => (
+            <span className="badge rounded-pill text-bg-secondary">
+              {genre}
+            </span>
+          ))}
+        </ul>
+
+        interface Props {
+          posterUrl: string;
+          title: string;
+          year: number;
+          genres: string[];
+          stars: string[];
+          summary: string;
+        }
