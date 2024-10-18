@@ -1,5 +1,4 @@
 import NavBar from "./global/NavBar";
-import Card from "./components/Card";
 import Grid from "./components/Grid";
 import "./styles/App.css";
 import { createContext, useEffect, useState } from "react";
@@ -32,7 +31,10 @@ function App() {
   return (
     <>
       <ThemeContext.Provider value={{ theme, setTheme }}>
-        <NavBar theme={theme} setTheme={toggleTheme}></NavBar>
+        <div className={"main-page " + theme}>
+          <NavBar theme={theme} setTheme={toggleTheme}></NavBar>
+          <Grid theme={theme} setTheme={toggleTheme}></Grid>
+        </div>
       </ThemeContext.Provider>
     </>
   );
