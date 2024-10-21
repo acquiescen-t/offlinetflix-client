@@ -3,34 +3,74 @@ import poster from "../../src/assets/poster.jpg";
 import poster2 from "../../src/assets/poster2.jpg";
 import poster3 from "../../src/assets/poster3.jpg";
 import poster4 from "../../src/assets/poster4.jpg";
+import poster5 from "../../src/assets/poster5.jpg";
+import poster6 from "../../src/assets/poster6.jpg";
+import poster7 from "../../src/assets/poster7.jpg";
 
-const Grid = () => {
+interface Props {
+  theme: "dark" | "light";
+  setTheme: (item: string) => void;
+}
+
+const Grid = ({ theme, setTheme }: Props) => {
   return (
     <>
-      <div className="container overflow-hidden">
+      <div className={"overflow-hidden m-5 " + theme}>
         <div className="row g-5">
-          <div className="col">
+          <div className="col-2">
             <Card
               posterUrl={poster}
               title="A Cure for Wellness"
               year={2006}
+              theme={theme}
             ></Card>
           </div>
-          <div className="col">
-            <Card posterUrl={poster2} title="A Quiet Place" year={2018}></Card>
+          <div className="col-2">
+            <Card
+              posterUrl={poster2}
+              title="A Quiet Place"
+              year={2018}
+              theme={theme}
+            ></Card>
           </div>
-          <div className="col">
+          <div className="col-2">
             <Card
               posterUrl={poster3}
               title="A Quiet Place Part II"
               year={2020}
+              theme={theme}
             ></Card>
           </div>
-          <div className="col">
+          <div className="col-2">
             <Card
               posterUrl={poster4}
               title="A Tale of Two Sisters"
               year={2003}
+              theme={theme}
+            ></Card>
+          </div>
+          <div className="col-2">
+            <Card
+              posterUrl={poster5}
+              title="Coherence"
+              year={2013}
+              theme={theme}
+            ></Card>
+          </div>
+          <div className="col-2">
+            <Card
+              posterUrl={poster6}
+              title="Dark Water"
+              year={2002}
+              theme={theme}
+            ></Card>
+          </div>
+          <div className="col-2">
+            <Card
+              posterUrl={poster7}
+              title="Don't Breathe 2"
+              year={2021}
+              theme={theme}
             ></Card>
           </div>
         </div>
@@ -40,10 +80,6 @@ const Grid = () => {
 };
 
 const Grid2 = () => {
-  var columns: number;
-
-  columns = 4;
-
   return (
     <>
       <div className="container overflow-hidden">
