@@ -1,13 +1,14 @@
 /*Main page, background, dark/light mode*/
-.main-page {
-    width: 100vw;
-    min-height: 100vh;
-}
+
 .light {
     background: #a2bee8;
 }
 .dark {
     background: #181818;
+}
+
+html, body, #root {
+    height: 100%;
 }
 
 /*Navigation bar*/
