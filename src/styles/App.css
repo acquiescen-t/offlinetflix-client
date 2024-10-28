@@ -1,9 +1,5 @@
-/*Main page, background, dark/light mode*/
-
-.light {
-    background: #a2bee8;
-}
-.dark {
+/*Main page, background*/
+.main-page {
     background: #181818;
 }
 
@@ -12,85 +8,110 @@ html, body, #root {
 }
 
 /*Navigation bar*/
-.search-bar {
-    display: flex;
-    align-items: center;
-    background: transparent;
-    padding: 10px 20px;
-    border-radius: 50px;
+.container-fluid {
+    height: 50px;
 }
-.search-bar input {
-    padding: 6px;
-    background: transparent;
-    border: #242424;
-    outline:#242424;
-    color: #575757;
-    font-size: 18px;
+.navbar-accent {
+    background: #a2bee8 !important;
 }
-.search-bar input::placeholder {
-    color: #787878;
+.navbar-brand {
+    width: 265px;
 }
-.search-bar img {
+.navbar-brand img {
+    width: 100%;
+    height: 100%;
+}
+.search-icon {
     width: 20px;
-    cursor: pointer;
-}
-.toggle-icon {
-    width: 35px;
-    margin: 30px;
 }
 .nav-item {
     font-size: 24px;
-    padding: 30px;
-    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+    font-family:"Bebas Neue", sans-serif;
+    font-weight: 700;
 }
-.toggle-light-dark {
-    cursor: pointer;
+.nav-item a {
+    color: #181818;
+}
+.nav-item a:hover {
+    color: whitesmoke;
 }
 
-/*Grid cards*/
+/*Hero*/
+.hero p {
+    color: whitesmoke;
+    font-family: "Alumni Sans Pinstripe", sans-serif;
+    font-weight: 500;
+    font-size: 7em;
+    text-align: left;
+}
+.carousel-item img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    display: block;
+}
+.carousel-gradient {
+    height: 100%;
+    width: 100%;
+    background-image: linear-gradient(to top, black 5%, transparent);
+    position: absolute;
+}
+.carousel-label {
+    font-family: "Roboto", sans-serif;
+    font-weight: 900;
+    font-style: normal;
+}
+
 .col-2 {
-    min-width: 200px;
-    min-height: 275px;
 }
 .card {
-    min-height: 100%;
-    min-width: 100%;
+    /*height: 100%;
+    width: 100%;*/
+    background-color:#a2bee8
 }
-.card-light {
-    background-color:whitesmoke !important;
-}
-.card-dark {
-    background-color:#a2bee8 !important;
-}
-.card-title-dark {
-    color: #181818 !important;
-}
-.card-title-dark {
-    color: whitesmoke !important;
-}
-
 .card img {
-    width: 100%
+    /*height: 100%;
+    width: 100%;
+    object-fit: cover;
+    display: block;*/
 }
 .card-body {
     display: flex;
     justify-content: center;
     align-items: center;
+    /*min-height: 9vh;
+    max-height: 9vh;*/
+}
+.card-body:hover {
+    background: #3f6aab;
 }
 .card-body a {
     font-family: "Bebas Neue", sans-serif;
     text-decoration: none;
     color:#181818;
 }
+.card-body a:hover {
+    color: whitesmoke;
+    transition: 0.2s;
+}
 .card-title {
-    text-align: center;
+    /* Gets rid of the weird space below the text */
     margin-bottom: 0 !important;
+    /* Aligns the text when display size is reduced */
+    text-align: center;
     justify-content: center;
 }
-
-.genre-list {
-    border: 1px solid blue;
+.card-popover {
+    --bs-popover-border-color: #3f6aab;
+    --bs-popover-header-bg: #3f6aab;
+    --bs-popover-header-color: whitesmoke;
+    --bs-popover-body-padding-x: 1rem;
+    --bs-popover-body-padding-y: 1rem;
 }
-.genre-list-group {
-    border: 1px solid red;
+.card-popover a {
+    text-decoration: none;
+}
+.card-popover h6 {
+    font-family: "Bebas Neue", sans-serif;
+    color:#3f6aab;
 }
