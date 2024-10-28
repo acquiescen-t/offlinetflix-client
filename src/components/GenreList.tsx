@@ -9,11 +9,9 @@ const GenreList = ({ genres }: Props) => {
 
   return (
     <>
-      <div>
-        <div className="badge rounded-pill text-bg-secondary">Horror</div>
-        &nbsp;&nbsp;
-        <div className="badge rounded-pill text-bg-secondary">Thriller</div>
-      </div>
+      <span className="badge rounded-pill text-bg-secondary">Horror</span>
+      &nbsp;&nbsp;
+      <span className="badge rounded-pill text-bg-secondary">Thriller</span>
     </>
   );
 };
