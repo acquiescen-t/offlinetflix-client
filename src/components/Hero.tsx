@@ -2,17 +2,24 @@ import hero1 from "../assets/hero.jpg";
 import hero2 from "../assets/hero2.jpg";
 import hero3 from "../assets/hero3.jpg";
 
+function ChangeCarouselSideDisplay() {
+  var slideZero = document.getElementById("slide-zero")?.className;
+  var slideOne = document.getElementById("slide-one")?.className;
+  var slideTwo = document.getElementById("slide-two")?.className;
+
+  var displayZero = document.getElementById("display-zero");
+  var displayOne = document.getElementById("display-one");
+  var displayTwo = document.getElementById("display-two");
+}
+
 const Hero = () => {
   return (
-    <div className="hero m-5 p-3">
-      <div className="row d-flex align-items-center">
-        <div className="col-3">
-          <p className="lh-1">LATEST RELEASES</p>
-        </div>
-        <div className="col-9">
+    <div className="hero">
+      <div className="row d-flex mb-5">
+        <div className="col-8">
           <div
             id="heroCarousel"
-            className="carousel slide"
+            className="carousel slide carousel-fade"
             data-bs-ride="carousel"
           >
             <div className="carousel-indicators">
@@ -40,7 +47,11 @@ const Hero = () => {
             <div className="carousel-inner">
               <div className="carousel-item active">
                 <div className="carousel-gradient"></div>
-                <img src={hero1} className="d-block w-100" alt="..." />
+                <img
+                  src={hero1}
+                  className="d-block w-100 slide-zero"
+                  alt="..."
+                />
                 <div className="carousel-label text-uppercase carousel-caption d-none d-md-block">
                   <h5>John Wick</h5>
                 </div>
@@ -85,6 +96,9 @@ const Hero = () => {
               <span className="visually-hidden">Next</span>
             </button>
           </div>
+        </div>
+        <div className="carousel-description col-3 mt-4 ms-2">
+          <h1>Don't Look Up</h1>
         </div>
       </div>
     </div>
