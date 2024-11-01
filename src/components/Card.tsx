@@ -1,29 +1,69 @@
-import GenreList from "./GenreList";
-import StarList from "./StarList";
+import { Film } from "../model/Film";
+import { Genre } from "../model/Genre";
+import { Star } from "../model/Star";
+
+declare var bootstrap: any;
 
 interface Props {
-  posterUrl: string;
-  title: string;
-  year: number;
-  genreList: string[];
-  starList: string[];
-  synopsis: string;
+  popover: boolean;
+  film?: Film;
+  genre?: Genre;
+  star?: Star;
 }
 
-const Card = ({
-  posterUrl,
-  title,
-  year,
-  genreList,
-  starList,
-  synopsis,
-}: Props) => {
-  let titleDisplay = title + " (" + year + ")";
+const Card = ({ popover, film, star, genre }: Props) => {
+  const popoverTriggerList = document.querySelectorAll(
+    '[data-bs-toggle="popover"]'
+  );
+  const popoverList = [...popoverTriggerList].map(
+    (popoverTriggerEl) =>
+      new bootstrap.Popover(popoverTriggerEl, {
+        sanitize: false,
+        html: true,
+      })
+  );
 
-  let popoverContent = GetAccordion(genreList, starList, synopsis);
+  var imageUrl, name;
+  if (film != null) {
+    imageUrl = film.imageUrl;
+    name = film.name;
+  } else if (star != null) {
+    imageUrl = star.imageUrl;
+    name = star.name;
+  } else if (genre != null) {
+    imageUrl = genre.imageUrl;
+    name = genre.name;
+  }
 
-  return (
-    <>
+  if (!popover) {
+    return (
+      <>
+        <div role="button" className="card-btn">
+          <div className="card">
+            <img
+              src={imageUrl}
+              className="card-img-top mx-auto d-block"
+              alt="posterUrl"
+            />
+            <div className="card-body">
+              <h6 className="card-title">
+                <a className="stretched-link">{name}</a>
+              </h6>
+            </div>
+          </div>
+        </div>
+      </>
+    );
+  } else if (film != null) {
+    let titleDisplay = name + " (" + film.year + ")";
+
+    let popoverContent = GetAccordion(
+      film.genreList,
+      film.starList,
+      film.synopsis
+    );
+
+    return (
       <div
         role="button"
         className="card-btn"
@@ -34,7 +74,7 @@ const Card = ({
       >
         <div className="card">
           <img
-            src={posterUrl}
+            src={film.imageUrl}
             className="card-img-top mx-auto d-block"
             alt="posterUrl"
           />
@@ -45,13 +85,13 @@ const Card = ({
           </div>
         </div>
       </div>
-    </>
-  );
+    );
+  }
 };
 
 function GetAccordion(
-  genreList: string[],
-  starList: string[],
+  genreList: Genre[],
+  starList: Star[],
   synopsis: string
 ): string {
   let accordion = '<div class="accordion" id="popoverAccordion">';
@@ -73,14 +113,13 @@ function GetAccordion(
 
   genreList.forEach(function (genre) {
     accordion = accordion
-      .concat('<span><a href="/genres/'.concat(genre))
+      .concat('<span><a href="/genres/'.concat(genre.name))
       .concat('"> ')
-      .concat(genre)
+      .concat(genre.name)
       .concat(" </a></span><br>");
   });
   accordion = accordion.concat("</div></div></div>");
 
-  // some logic to add accordion for stars too
   accordion = accordion
     .concat('<div class="accordion-item">')
     .concat('<h2 class="accordion-header">')
@@ -98,11 +137,12 @@ function GetAccordion(
     .concat('"><div class="accordion-body">');
 
   starList.forEach(function (star) {
-    accordion = accordion.concat("<span>".concat(star).concat("</span><br>"));
+    accordion = accordion.concat(
+      "<span>".concat(star.name).concat("</span><br>")
+    );
   });
 
   accordion = accordion.concat("</div></div></div>");
-  // stars
 
   accordion = accordion
     .concat('<div class="accordion-item">')
@@ -115,7 +155,11 @@ function GetAccordion(
     .concat('<div id="collapseThree" class="accordion-collapse collapse show">')
     .concat('<div class="accordion-body text-center text-balance">')
     .concat(synopsis)
-    .concat("</div></div></div></div>");
+    .concat("</div></div></div>")
+    .concat(
+      '<div className="accordion-watch-now text-center"><a href="#">Watch now</a></div>'
+    )
+    .concat("</div>");
 
   console.log("accordion: ".concat(accordion));
   return accordion;
