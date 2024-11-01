@@ -1,5 +1,6 @@
-import logo from "../../src/assets/logo.png";
-import search_icon from "../../src/assets/search-icon.png";
+import logo from "../../src/assets/web/logo.png";
+import search_icon from "../../src/assets/web/search-icon.png";
+import { Link } from "react-router-dom";
 
 const NavBar = () => {
   return (
@@ -25,19 +26,13 @@ const NavBar = () => {
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav me-auto p-2">
               <li className="nav-item p-3">
-                <a className="nav-link" href="/films">
-                  FILMS
-                </a>
+                <Link to={`/films`}>FILMS</Link>
               </li>
               <li className="nav-item p-3">
-                <a className="nav-link" href="/genres">
-                  GENRES
-                </a>
+                <Link to={`/genres`}>GENRES</Link>
               </li>
               <li className="nav-item p-3">
-                <a className="nav-link" href="/stars">
-                  STARS
-                </a>
+                <Link to={`/stars`}>STARS</Link>
               </li>
             </ul>
 
