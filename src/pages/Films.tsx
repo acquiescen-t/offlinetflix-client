@@ -1,55 +1,35 @@
+import { useState, useEffect } from "react";
+import axios from "axios";
 import Card from "../components/Card";
-import { Film } from "../model/Film";
 
 function Films() {
-  var films = Film.GenerateFilms();
+  const [films, setFilms] = useState([]);
+  useEffect(() => {
+    axios
+      .get("https://tiger-allowing-presumably.ngrok-free.app/api/v1/films", {
+        headers: {
+          "ngrok-skip-browser-warning": "69420",
+        },
+      })
+      .then((response) => {
+        setFilms(response.data);
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, []);
 
   return (
-    <>
-      <div className="container pt-5">
-        <div className="row g-5">
+    <div className="container pt-5">
+      <div className="row g-5">
+        {films.map((item) => (
           <div className="col-3">
-            <Card popover={true} film={films[0]}></Card>
+            <Card popover={true} film={item}></Card>
           </div>
-          <div className="col-3">
-            <Card popover={true} film={films[1]}></Card>
-          </div>
-          <div className="col-3">
-            <Card popover={true} film={films[2]}></Card>
-          </div>
-          <div className="col-3">
-            <Card popover={true} film={films[3]}></Card>
-          </div>
-          <div className="col-3">
-            <Card popover={true} film={films[4]}></Card>
-          </div>
-          <div className="col-3">
-            <Card popover={true} film={films[5]}></Card>
-          </div>
-          <div className="col-3">
-            <Card popover={true} film={films[6]}></Card>
-          </div>
-          <div className="col-3">
-            <Card popover={true} film={films[7]}></Card>
-          </div>
-          <div className="col-3">
-            <Card popover={true} film={films[8]}></Card>
-          </div>
-          <div className="col-3">
-            <Card popover={true} film={films[9]}></Card>
-          </div>
-          <div className="col-3">
-            <Card popover={true} film={films[10]}></Card>
-          </div>
-          <div className="col-3">
-            <Card popover={true} film={films[11]}></Card>
-          </div>
-          <div className="col-3">
-            <Card popover={true} film={films[12]}></Card>
-          </div>
-        </div>
+        ))}
       </div>
-    </>
+    </div>
   );
 }
 
