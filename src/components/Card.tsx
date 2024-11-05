@@ -1,6 +1,7 @@
 import { Film } from "../model/Film";
 import { Genre } from "../model/Genre";
 import { Star } from "../model/Star";
+import errorImg from "../assets/web/poster-not-found.jpg";
 
 declare var bootstrap: any;
 
@@ -41,9 +42,13 @@ const Card = ({ popover, film, star, genre }: Props) => {
         <div role="button" className="card-btn">
           <div className="card">
             <img
-              src={imageUrl}
+              src={errorImg}
               className="card-img-top mx-auto d-block"
-              alt="posterUrl"
+              alt="imageUrl"
+              onError={({ currentTarget }) => {
+                currentTarget.onerror = null;
+                currentTarget.src = errorImg;
+              }}
             />
             <div className="card-body">
               <h6 className="card-title">
@@ -55,11 +60,11 @@ const Card = ({ popover, film, star, genre }: Props) => {
       </>
     );
   } else if (film != null) {
-    let titleDisplay = name + " (" + film.year + ")";
+    let titleDisplay = name + " (" + film.releaseYear + ")";
 
     let popoverContent = GetAccordion(
-      film.genreList,
-      film.starList,
+      film.genresOfFilm,
+      film.starsOfFilm,
       film.synopsis
     );
 
@@ -76,7 +81,11 @@ const Card = ({ popover, film, star, genre }: Props) => {
           <img
             src={film.imageUrl}
             className="card-img-top mx-auto d-block"
-            alt="posterUrl"
+            alt="imageUrl"
+            onError={({ currentTarget }) => {
+              currentTarget.onerror = null;
+              currentTarget.src = errorImg;
+            }}
           />
           <div className="card-body">
             <h6 className="card-title">
