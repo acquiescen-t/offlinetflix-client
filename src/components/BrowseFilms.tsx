@@ -1,8 +1,31 @@
 import Card from "./Card";
-import { Film } from "../model/Film";
+import { useState, useEffect } from "react";
+import axios from "axios";
 
 const BrowseFilms = () => {
-  var films = Film.GenerateFilms();
+  const [films, setFilms] = useState([]);
+  useEffect(() => {
+    axios
+      .get("https://tiger-allowing-presumably.ngrok-free.app/api/v1/films", {
+        headers: {
+          "ngrok-skip-browser-warning": "69420",
+        },
+      })
+      .then((response) => {
+        setFilms(response.data);
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, []);
+
+  // Shuffle and take first 4 items
+  let shuffled = films
+    .map((value) => ({ value, sort: Math.random() }))
+    .sort((a, b) => a.sort - b.sort)
+    .map(({ value }) => value)
+    .slice(0, 4);
 
   return (
     <div className="container pb-5">
@@ -10,18 +33,11 @@ const BrowseFilms = () => {
         <a href="/films">Browse By Films</a>
       </span>
       <div className="row g-5">
-        <div className="col-3">
-          <Card popover={false} film={films[0]}></Card>
-        </div>
-        <div className="col-3">
-          <Card popover={false} film={films[1]}></Card>
-        </div>
-        <div className="col-3">
-          <Card popover={false} film={films[2]}></Card>
-        </div>
-        <div className="col-3">
-          <Card popover={false} film={films[3]}></Card>
-        </div>
+        {shuffled.map((item) => (
+          <div className="col-3">
+            <Card popover={true} film={item}></Card>
+          </div>
+        ))}
       </div>
     </div>
   );
