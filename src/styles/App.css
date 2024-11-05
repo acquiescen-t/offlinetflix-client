@@ -1,8 +1,9 @@
 /*Main page, background*/
 .main-page {
-    background: #181818;
+    background-image: url('G:\Projects\offlinetflix-client\src\assets\web\background-image.jpg');
+    background-size: cover;
+    background-attachment: fixed;
 }
-
 html, body, #root {
     height: 100%;
 }
@@ -24,19 +25,22 @@ html, body, #root {
 .search-icon {
     width: 20px;
 }
-.nav-item {
-    font-size: 24px;
-    font-family:"Bebas Neue", sans-serif;
-    font-weight: 700;
-}
 .nav-item a {
     color: #181818;
+    text-decoration: none;
+    font-family:"Bebas Neue", sans-serif;
+    font-size: 24px;
+    font-weight: 700;
 }
 .nav-item a:hover {
     color: whitesmoke;
 }
 
 /*Hero*/
+.hero h1 {
+    color: whitesmoke;
+    font-family: "Bebas Neue", sans-serif;
+}
 .hero p {
     color: whitesmoke;
     font-family: "Alumni Sans Pinstripe", sans-serif;
@@ -62,25 +66,26 @@ html, body, #root {
     font-style: normal;
 }
 
-.col-2 {
+.browse-by a {
+    font-family: "Bebas Neue", sans-serif;
+    font-size: 2em;
+    color: whitesmoke;
+    text-decoration: none;
 }
+.browse-by a:hover {
+    font-family: "Bebas Neue", sans-serif;
+    font-size: 2em;
+    color: #3f6aab;
+    text-decoration: none;
+}
+
 .card {
-    /*height: 100%;
-    width: 100%;*/
     background-color:#a2bee8
-}
-.card img {
-    /*height: 100%;
-    width: 100%;
-    object-fit: cover;
-    display: block;*/
 }
 .card-body {
     display: flex;
     justify-content: center;
     align-items: center;
-    /*min-height: 9vh;
-    max-height: 9vh;*/
 }
 .card-body:hover {
     background: #3f6aab;
