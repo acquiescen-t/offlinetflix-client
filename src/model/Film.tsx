@@ -18,24 +18,24 @@ import { Star } from "./Star";
 export class Film {
   imageUrl: string;
   name: string;
-  year: number;
-  genreList: Genre[];
-  starList: Star[];
+  releaseYear: number;
+  genresOfFilm: Genre[];
+  starsOfFilm: Star[];
   synopsis: string;
 
   constructor(
     imageUrl: string,
     name: string,
-    year: number,
-    genreList: Genre[],
-    starList: Star[],
+    releaseYear: number,
+    genresOfFilm: Genre[],
+    starsOfFilm: Star[],
     synopsis: string
   ) {
     this.imageUrl = imageUrl;
     this.name = name;
-    this.year = year;
-    this.genreList = genreList;
-    this.starList = starList;
+    this.releaseYear = releaseYear;
+    this.genresOfFilm = genresOfFilm;
+    this.starsOfFilm = starsOfFilm;
     this.synopsis = synopsis;
   }
 
