@@ -2,71 +2,53 @@ import { Film } from "../model/Film";
 import { Genre } from "../model/Genre";
 import { Star } from "../model/Star";
 import errorImg from "../assets/web/poster-not-found.jpg";
+import { useState, useEffect } from "react";
+import api from "../api";
 
 declare var bootstrap: any;
 
-interface Props {
-  popover: boolean;
+interface CommonProps {
   film?: Film;
   genre?: Genre;
   star?: Star;
 }
 
-const Card = ({ popover, film, star, genre }: Props) => {
-  const popoverTriggerList = document.querySelectorAll(
-    '[data-bs-toggle="popover"]'
-  );
-  const popoverList = [...popoverTriggerList].map(
-    (popoverTriggerEl) =>
-      new bootstrap.Popover(popoverTriggerEl, {
-        sanitize: false,
-        html: true,
-      })
-  );
+interface FilmProps {
+  film: Film;
+}
 
-  var imageUrl, name;
-  if (film != null) {
-    imageUrl = film.imageUrl;
-    name = film.name;
-  } else if (star != null) {
-    imageUrl = star.imageUrl;
-    name = star.name;
-  } else if (genre != null) {
-    imageUrl = genre.imageUrl;
-    name = genre.name;
-  }
+interface GenreProps {
+  genre: Genre;
+}
 
-  if (!popover) {
-    return (
-      <>
-        <div role="button" className="card-btn">
-          <div className="card">
-            <img
-              src={errorImg}
-              className="card-img-top mx-auto d-block"
-              alt="imageUrl"
-              onError={({ currentTarget }) => {
-                currentTarget.onerror = null;
-                currentTarget.src = errorImg;
-              }}
-            />
-            <div className="card-body">
-              <h6 className="card-title">
-                <a className="stretched-link">{name}</a>
-              </h6>
-            </div>
-          </div>
-        </div>
-      </>
-    );
-  } else if (film != null) {
-    let titleDisplay = name + " (" + film.releaseYear + ")";
+interface StarProps {
+  star: Star;
+}
 
-    let popoverContent = GetAccordion(
-      film.genresOfFilm,
-      film.starsOfFilm,
-      film.synopsis
-    );
+type Props = (FilmProps | GenreProps | StarProps) & CommonProps;
+
+const Card = (props: Props) => {
+  if (props.film != null) {
+    useEffect(() => {
+      const popoverTriggerList = document.querySelectorAll(
+        '[data-bs-toggle="popover"]'
+      );
+      const popoverList = [...popoverTriggerList].map(
+        (popoverTriggerEl) =>
+          new bootstrap.Popover(popoverTriggerEl, {
+            sanitize: false,
+            html: true,
+          })
+      );
+
+      return () => {
+        popoverList.forEach((popover) => popover.dispose());
+      };
+    }, []);
+
+    let titleDisplay = props.film.name + " (" + props.film.releaseYear + ")";
+
+    let popoverContent = GetAccordion(props.film);
 
     return (
       <div
@@ -77,9 +59,9 @@ const Card = ({ popover, film, star, genre }: Props) => {
         data-bs-content={popoverContent}
         data-bs-custom-class="card-popover"
       >
-        <div className="card">
+        <div className="index card">
           <img
-            src={film.imageUrl}
+            src={props.film.imageUrl}
             className="card-img-top mx-auto d-block"
             alt="imageUrl"
             onError={({ currentTarget }) => {
@@ -87,8 +69,8 @@ const Card = ({ popover, film, star, genre }: Props) => {
               currentTarget.src = errorImg;
             }}
           />
-          <div className="card-body">
-            <h6 className="card-title">
+          <div className="index card-body">
+            <h6 className="index card-title">
               <a className="stretched-link">{titleDisplay}</a>
             </h6>
           </div>
@@ -96,31 +78,105 @@ const Card = ({ popover, film, star, genre }: Props) => {
       </div>
     );
   }
+
+  if (props.genre != null) {
+    const [filmsMatchingGenre, setFilmsMatchingGenre] = useState<Film[]>([]);
+    useEffect(() => {
+      api
+        .get("/films/search/genre-name/".concat(props.genre!.name))
+        .then((response) => {
+          setFilmsMatchingGenre(response.data);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }, []);
+
+    // Randomly select 1 film to be displayed
+    let shuffled = filmsMatchingGenre
+      .map((value) => ({ value, sort: Math.random() }))
+      .sort((a, b) => a.sort - b.sort)
+      .map(({ value }) => value)
+      .slice(0, Math.min(filmsMatchingGenre.length, 1));
+
+    var imageUrl = shuffled.length == 1 ? shuffled.at(0)?.imageUrl : errorImg;
+    var name = props.genre.name;
+    var redirect = "/genres/".concat(name);
+
+    return (
+      <>
+        <div role="button" className="card-btn">
+          <div className="index card">
+            <img
+              src={imageUrl}
+              className="card-img-top mx-auto d-block"
+              alt="imageUrl"
+              onError={({ currentTarget }) => {
+                currentTarget.onerror = null;
+                currentTarget.src = errorImg;
+              }}
+            />
+            <div className="index card-body">
+              <h6 className="index card-title">
+                <a className="stretched-link" href={redirect}>
+                  {name}
+                </a>
+              </h6>
+            </div>
+          </div>
+        </div>
+      </>
+    );
+  }
+
+  if (props.star != null) {
+    imageUrl = props.star.imageUrl;
+    name = props.star.name;
+
+    return (
+      <>
+        <div role="button" className="card-btn">
+          <div className="index card">
+            <img
+              src={imageUrl}
+              className="card-img-top mx-auto d-block"
+              alt="imageUrl"
+              onError={({ currentTarget }) => {
+                currentTarget.onerror = null;
+                currentTarget.src = errorImg;
+              }}
+            />
+            <div className="index card-body">
+              <h6 className="index card-title">
+                <a className="stretched-link">{name}</a>
+              </h6>
+            </div>
+          </div>
+        </div>
+      </>
+    );
+  }
 };
 
-function GetAccordion(
-  genreList: Genre[],
-  starList: Star[],
-  synopsis: string
-): string {
+function GetAccordion(film: Film): string {
   let accordion = '<div class="accordion" id="popoverAccordion">';
   accordion = accordion
     .concat('<div class="accordion-item">')
     .concat('<h2 class="accordion-header">')
     .concat('<button class="accordion-button')
-    .concat(genreList.length > 3 ? ' collapsed"' : '"')
+    .concat(film.genresOfFilm.length > 3 ? ' collapsed"' : '"')
     .concat(
       ' type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded='
     )
-    .concat(genreList.length > 3 ? '"false"' : '"true"')
+    .concat(film.genresOfFilm.length > 3 ? '"false"' : '"true"')
     .concat(' aria-controls="collapseOne">')
     .concat("GENRES")
     .concat("</button></h2>")
     .concat('<div id="collapseOne" class="accordion-collapse collapse')
-    .concat(genreList.length > 3 ? "" : " show")
-    .concat('"><div class="accordion-body">');
+    .concat(film.genresOfFilm.length > 3 ? "" : " show")
+    .concat('"><div class="accordion-body text-capitalize">');
 
-  genreList.forEach(function (genre) {
+  film.genresOfFilm.forEach(function (genre) {
     accordion = accordion
       .concat('<span><a href="/genres/'.concat(genre.name))
       .concat('"> ')
@@ -133,19 +189,19 @@ function GetAccordion(
     .concat('<div class="accordion-item">')
     .concat('<h2 class="accordion-header">')
     .concat('<button class="accordion-button')
-    .concat(starList.length > 3 ? ' collapsed"' : '"')
+    .concat(film.starsOfFilm.length > 3 ? ' collapsed"' : '"')
     .concat(
       ' type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded='
     )
-    .concat(starList.length > 3 ? '"false"' : '"true"')
+    .concat(film.starsOfFilm.length > 3 ? '"false"' : '"true"')
     .concat(' aria-controls="collapseTwo">')
     .concat("STARS")
     .concat("</button></h2>")
     .concat('<div id="collapseTwo" class="accordion-collapse collapse')
-    .concat(starList.length > 3 ? "" : " show")
+    .concat(film.starsOfFilm.length > 3 ? "" : " show")
     .concat('"><div class="accordion-body">');
 
-  starList.forEach(function (star) {
+  film.starsOfFilm.forEach(function (star) {
     accordion = accordion.concat(
       "<span>".concat(star.name).concat("</span><br>")
     );
@@ -163,14 +219,11 @@ function GetAccordion(
     .concat("</button></h2>")
     .concat('<div id="collapseThree" class="accordion-collapse collapse show">')
     .concat('<div class="accordion-body text-center text-balance">')
-    .concat(synopsis)
-    .concat("</div></div></div>")
-    .concat(
-      '<div className="accordion-watch-now text-center"><a href="#">Watch now</a></div>'
-    )
-    .concat("</div>");
-
-  console.log("accordion: ".concat(accordion));
+    .concat(film.synopsis)
+    .concat('<br/><br/><a href="/films/')
+    .concat(film.id)
+    .concat('">Watch now</a>')
+    .concat("</div></div></div></div>");
   return accordion;
 }
 
