@@ -1,4 +1,3 @@
-import React from "react";
 import ReactDOM from "react-dom/client";
 import Index from "./pages/Index";
 import Root from "./routes/root";
@@ -7,8 +6,11 @@ import ErrorPage from "./error-page";
 import Films from "./pages/Films";
 import Stars from "./pages/Stars";
 import Genres from "./pages/Genres";
+import GenreFilms from "./pages/GenreFilms";
+import WatchFilm from "./pages/WatchFilm";
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import TestPage from "./pages/TestPage";
 
 const router = createBrowserRouter([
   {
@@ -25,19 +27,31 @@ const router = createBrowserRouter([
         element: <Films />,
       },
       {
+        path: "films/:filmId",
+        element: <WatchFilm />,
+      },
+      {
         path: "genres/",
         element: <Genres />,
       },
       {
+        path: "genres/:genreName",
+        element: <GenreFilms />,
+      },
+      {
         path: "stars/",
         element: <Stars />,
+      },
+      {
+        path: "test/",
+        element: <TestPage />,
       },
     ],
   },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
-  <React.StrictMode>
-    <RouterProvider router={router} />
-  </React.StrictMode>
+  // <React.StrictMode>
+  <RouterProvider router={router} />
+  // </React.StrictMode>
 );
