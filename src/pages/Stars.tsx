@@ -1,30 +1,30 @@
+import { useEffect, useState } from "react";
+import api from "../api";
 import Card from "../components/Card";
 import { Star } from "../model/Star";
 
 const Stars = () => {
-  var stars = Star.GenerateStars();
+  const [stars, setStars] = useState<Star[]>([]);
+  useEffect(() => {
+    api
+      .get("/stars")
+      .then((response) => {
+        setStars(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  });
+
   return (
     <>
       <div className="container pt-5">
         <div className="row g-5">
-          <div className="col-3">
-            <Card popover={false} star={stars[0]}></Card>
-          </div>
-          <div className="col-3">
-            <Card popover={false} star={stars[1]}></Card>
-          </div>
-          <div className="col-3">
-            <Card popover={false} star={stars[2]}></Card>
-          </div>
-          <div className="col-3">
-            <Card popover={false} star={stars[3]}></Card>
-          </div>
-          <div className="col-3">
-            <Card popover={false} star={stars[4]}></Card>
-          </div>
-          <div className="col-3">
-            <Card popover={false} star={stars[5]}></Card>
-          </div>
+          {stars.map((item) => (
+            <div key={item.id} className="col-3">
+              <Card star={item}></Card>
+            </div>
+          ))}
         </div>
       </div>
     </>
