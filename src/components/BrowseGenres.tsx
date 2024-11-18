@@ -1,27 +1,41 @@
-import Card from "../components/Card";
+import { useEffect, useState } from "react";
+import api from "../api";
+import Card from "./Card";
 import { Genre } from "../model/Genre";
 
 const BrowseGenres = () => {
-  var genres = Genre.GenerateGenres();
+  // Find all genres
+  const [genres, setGenres] = useState<Genre[]>([]);
+  useEffect(() => {
+    api
+      .get("/genres")
+      .then((response) => {
+        setGenres(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, []);
 
+  // Randomly select 4 unique genres
+  var randomGenres = genres
+    .map((value) => ({ value, sort: Math.random() }))
+    .sort((a, b) => a.sort - b.sort)
+    .map(({ value }) => value)
+    .slice(0, Math.min(genres.length, 4));
+
+  // Generate component featuring said genres
   return (
     <div className="container pb-5">
-      <span className="browse-by">
+      <div className="browse-by py-3">
         <a href="/genres">Browse By Genres</a>
-      </span>
+      </div>
       <div className="row g-5">
-        <div className="col-3">
-          <Card popover={false} genre={genres[0]}></Card>
-        </div>
-        <div className="col-3">
-          <Card popover={false} genre={genres[1]}></Card>
-        </div>
-        <div className="col-3">
-          <Card popover={false} genre={genres[2]}></Card>
-        </div>
-        <div className="col-3">
-          <Card popover={false} genre={genres[3]}></Card>
-        </div>
+        {randomGenres.map((item) => (
+          <div key={item.name} className="col-3">
+            <Card genre={item}></Card>
+          </div>
+        ))}
       </div>
     </div>
   );
