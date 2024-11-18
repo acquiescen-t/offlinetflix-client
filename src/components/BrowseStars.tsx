@@ -1,27 +1,39 @@
-import Card from "../components/Card";
+import { useState, useEffect } from "react";
+import api from "../api";
+import Card from "./Card";
 import { Star } from "../model/Star";
 
 const BrowseStars = () => {
-  var stars = Star.GenerateStars();
+  const [stars, setStars] = useState<Star[]>([]);
+  useEffect(() => {
+    api
+      .get("/stars")
+      .then((response) => {
+        setStars(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, []);
+
+  // Shuffle and take first 4 items
+  let shuffled = stars
+    .map((value) => ({ value, sort: Math.random() }))
+    .sort((a, b) => a.sort - b.sort)
+    .map(({ value }) => value)
+    .slice(0, Math.min(stars.length, 4));
 
   return (
     <div className="container pb-5">
-      <span className="browse-by">
+      <div className="browse-by py-3">
         <a href="/stars">Browse By Stars</a>
-      </span>
+      </div>
       <div className="row g-5">
-        <div className="col-3">
-          <Card popover={false} star={stars[0]}></Card>
-        </div>
-        <div className="col-3">
-          <Card popover={false} star={stars[1]}></Card>
-        </div>
-        <div className="col-3">
-          <Card popover={false} star={stars[2]}></Card>
-        </div>
-        <div className="col-3">
-          <Card popover={false} star={stars[3]}></Card>
-        </div>
+        {shuffled.map((item) => (
+          <div key={item.id} className="col-3">
+            <Card star={item}></Card>
+          </div>
+        ))}
       </div>
     </div>
   );
