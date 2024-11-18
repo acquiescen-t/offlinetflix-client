@@ -3,6 +3,7 @@
     background-image: url('G:\Projects\offlinetflix-client\src\assets\web\background-image.jpg');
     background-size: cover;
     background-attachment: fixed;
+    min-height: 100vh;
 }
 html, body, #root {
     height: 100%;
@@ -66,45 +67,39 @@ html, body, #root {
     font-style: normal;
 }
 
-.browse-by a {
+/*Home Page*/
+.browse-by a, h3 {
     font-family: "Bebas Neue", sans-serif;
     font-size: 2em;
     color: whitesmoke;
     text-decoration: none;
+    
 }
 .browse-by a:hover {
     font-family: "Bebas Neue", sans-serif;
     font-size: 2em;
-    color: #3f6aab;
-    text-decoration: none;
+    color: #a2bee8;
 }
-
-.card {
-    background-color:#a2bee8
-}
-.card-body {
+.index {
+    background-color:#a2bee8;
     display: flex;
     justify-content: center;
     align-items: center;
+    /* Gets rid of the weird space below the text */
+    margin-bottom: 0 !important;
+    /* Aligns the text when display size is reduced */
 }
-.card-body:hover {
+.index:hover {
     background: #3f6aab;
 }
-.card-body a {
+.index a {
     font-family: "Bebas Neue", sans-serif;
     text-decoration: none;
     color:#181818;
 }
-.card-body a:hover {
+.index a:hover {
     color: whitesmoke;
     transition: 0.2s;
-}
-.card-title {
-    /* Gets rid of the weird space below the text */
-    margin-bottom: 0 !important;
-    /* Aligns the text when display size is reduced */
-    text-align: center;
-    justify-content: center;
 }
 .card-popover {
     --bs-popover-border-color: #3f6aab;
@@ -113,10 +108,60 @@ html, body, #root {
     --bs-popover-body-padding-x: 1rem;
     --bs-popover-body-padding-y: 1rem;
 }
-.card-popover a {
+.accordion-item a {
     text-decoration: none;
 }
 .card-popover h6 {
     font-family: "Bebas Neue", sans-serif;
     color:#3f6aab;
+}
+.accordion-body a {
+    font-family: "Bebas Neue", sans-serif;
+    color:#3f6aab;
+}
+.accordion-body a:hover {
+    color:#181818;
+}
+
+/*Error Page*/
+.error-page {
+    display: flex;
+    border: 1px solid black;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+}
+
+/*Watch Page*/
+.film-page {
+    width: 100vw;
+}
+.card-body a + a {
+    margin: 10px;
+}
+.panel-wrapper {
+    background-color: #181818;
+    font-family: "Bebas Neue", sans-serif;
+    color: whitesmoke;
+    padding: 0;
+}
+.genre-container ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    line-height: 160%;
+}
+.genre-container a {
+    text-decoration: none;
+    font-size: .75em;
+}
+
+/*Test Container*/
+.test-container {
+    border: 5px solid red;
+    padding: 5px;
+}
+.test-container span + span {
+    margin-left: 10px;
 }
