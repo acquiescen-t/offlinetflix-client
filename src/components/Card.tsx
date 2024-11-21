@@ -61,7 +61,9 @@ const Card = (props: Props) => {
       >
         <div className="index card">
           <img
-            src={props.film.imageUrl}
+            src={"https://image.tmdb.org/t/p/w600_and_h900_bestv2/".concat(
+              props.film.imageUrl
+            )}
             className="card-img-top mx-auto d-block"
             alt="imageUrl"
             onError={({ currentTarget }) => {
@@ -99,7 +101,12 @@ const Card = (props: Props) => {
       .map(({ value }) => value)
       .slice(0, Math.min(filmsMatchingGenre.length, 1));
 
-    var imageUrl = shuffled.length == 1 ? shuffled.at(0)?.imageUrl : errorImg;
+    var imageUrl =
+      shuffled.length == 1
+        ? "https://image.tmdb.org/t/p/w600_and_h900_bestv2/".concat(
+            shuffled.at(0)!.imageUrl
+          )
+        : errorImg;
     var name = props.genre.name;
     var redirect = "/genres/".concat(name);
 
@@ -218,7 +225,7 @@ function GetAccordion(film: Film): string {
     .concat("SYNOPSIS")
     .concat("</button></h2>")
     .concat('<div id="collapseThree" class="accordion-collapse collapse show">')
-    .concat('<div class="accordion-body text-center text-balance">')
+    .concat('<div class="accordion-body text-balance">')
     .concat(film.synopsis)
     .concat('<br/><br/><a href="/films/')
     .concat(film.id)
