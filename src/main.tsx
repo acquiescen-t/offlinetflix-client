@@ -11,6 +11,7 @@ import WatchFilm from "./pages/WatchFilm";
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import TestPage from "./pages/TestPage";
+import Sync from "./pages/Sync";
 
 const router = createBrowserRouter([
   {
@@ -42,6 +43,10 @@ const router = createBrowserRouter([
         path: "stars/",
         element: <Stars />,
       },
+      // {
+      //   path: "sync/",
+      //   element: <Sync />,
+      // },
       {
         path: "test/",
         element: <TestPage />,
