@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Film } from "../model/Film";
 import api from "../api";
 import errorImg from "../assets/web/poster-not-found.jpg";
+import { Link } from "react-router-dom";
 
 const Hero = () => {
   const [activeSlide, setActiveSlide] = useState(0);
@@ -40,13 +41,36 @@ const Hero = () => {
   }, []);
 
   return (
-    <div className="hero row justify-content-md-center d-flex mb-5">
+    <div id="hero" className="hero row">
       <div
         id="heroCarousel"
-        className="carousel slide carousel-fade col-3"
+        className="carousel slide carousel-fade col-8"
         data-bs-ride="carousel"
         data-bs-pause="hover"
       >
+        <div className="carousel-inner">
+          {featuredFilms.map((film, index) => (
+            <div
+              key={film.id}
+              className={`carousel-item ${index === 0 ? "active" : ""}`}
+            >
+              <div className="carousel-gradient"></div>
+              <img
+                src={`https://image.tmdb.org/t/p/w1920_and_h1080_bestv2/${film.backdropUrl}`}
+                className="d-block w-100"
+                alt="..."
+                onError={({ currentTarget }) => {
+                  currentTarget.onerror = null;
+                  currentTarget.src = errorImg;
+                }}
+              />
+              <div className="carousel-label text-uppercase carousel-caption d-none d-md-block">
+                <h5>{film.name}</h5>
+              </div>
+            </div>
+          ))}
+        </div>
+
         <div className="carousel-indicators">
           <button
             type="button"
@@ -75,28 +99,6 @@ const Hero = () => {
             aria-label="Slide 4"
           />
         </div>
-        <div className="carousel-inner">
-          {featuredFilms.map((film, index) => (
-            <div
-              key={film.id}
-              className={`carousel-item ${index === 0 ? "active" : ""}`}
-            >
-              <div className="carousel-gradient"></div>
-              <img
-                src={film.imageUrl}
-                className="d-block w-100"
-                alt="..."
-                onError={({ currentTarget }) => {
-                  currentTarget.onerror = null;
-                  currentTarget.src = errorImg;
-                }}
-              />
-              <div className="carousel-label text-uppercase carousel-caption d-none d-md-block">
-                <h5>{film.name}</h5>
-              </div>
-            </div>
-          ))}
-        </div>
         <button
           className="carousel-control-prev"
           type="button"
@@ -122,9 +124,44 @@ const Hero = () => {
           <span className="visually-hidden">Next</span>
         </button>
       </div>
-      <div className="carousel-description col-3 mt-5">
-        <h1>{featuredFilms[activeSlide]?.name}</h1>
-        <p>{featuredFilms[activeSlide]?.synopsis}</p>
+      <div className="carousel-description col-3 ms-5">
+        <div className="carousel-film-name row align-items-center">
+          <Link
+            className="carousel-film-name-link"
+            to={"http://localhost:5173/films/".concat(
+              featuredFilms[activeSlide]?.id
+            )}
+          >
+            {featuredFilms[activeSlide]?.name}
+          </Link>
+        </div>
+        <div className="carousel-film-synopsis row align-items-center">
+          <p>{featuredFilms[activeSlide]?.synopsis}</p>
+        </div>
+        <div className="carousel-film-lists row pt-3">
+          <div className="carousel-film-genres col-6">
+            <ul>
+              {featuredFilms[activeSlide]?.genresOfFilm.map((genre) => (
+                <li key={genre.id}>
+                  <Link to={"http://localhost:5173/genres/".concat(genre.name)}>
+                    {genre.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div className="carousel-film-stars col-6">
+            <ul>
+              {featuredFilms[activeSlide]?.starsOfFilm.map((star) => (
+                <li>
+                  <Link to={"http://localhost:5173/stars/".concat(star.name)}>
+                    {star.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
       </div>
     </div>
   );
