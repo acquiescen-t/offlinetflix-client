@@ -1,4 +1,8 @@
 /*Main page, background*/
+* {
+    font-family:"Bebas Neue", sans-serif;
+    color: whitesmoke;
+}
 .main-page {
     background-image: url('G:\Projects\offlinetflix-client\src\assets\web\background-image.jpg');
     background-size: cover;
@@ -29,7 +33,6 @@ html, body, #root {
 .nav-item a {
     color: #181818;
     text-decoration: none;
-    font-family:"Bebas Neue", sans-serif;
     font-size: 24px;
     font-weight: 700;
 }
@@ -37,23 +40,16 @@ html, body, #root {
     color: whitesmoke;
 }
 
+
 /*Hero*/
-.hero h1 {
-    color: whitesmoke;
-    font-family: "Bebas Neue", sans-serif;
+#hero {
+    margin: 0px;
 }
-.hero p {
-    color: whitesmoke;
-    font-family: "Alumni Sans Pinstripe", sans-serif;
-    font-weight: 500;
-    font-size: 7em;
-    text-align: left;
+.hero {
+    height: 575px;
 }
-.carousel-item img {
-    height: 100%;
-    width: 100%;
-    object-fit: cover;
-    display: block;
+.carousel {
+    padding: 0px;
 }
 .carousel-gradient {
     height: 100%;
@@ -61,24 +57,50 @@ html, body, #root {
     background-image: linear-gradient(to top, black 5%, transparent);
     position: absolute;
 }
-.carousel-label {
+.carousel-description {
+    height: 100%;
+}
+.carousel-description p {
     font-family: "Roboto", sans-serif;
-    font-weight: 900;
-    font-style: normal;
+}
+.carousel-description ul {
+    list-style-type:none;
+    margin: 0;
+    padding: 0;
+}
+.carousel-description a {
+    color: whitesmoke;
+    text-decoration: none;
+}
+.carousel-description a:hover {
+    color: whitesmoke;
+    text-decoration: underline;
+}
+
+.carousel-film-name {
+    height: 20%;
+}
+.carousel-film-name-link {
+    font-size: 2em;
+}
+
+.carousel-film-synopsis {
+    height: 45%;
+}
+.carousel-film-lists {
+    height: 35%;
 }
 
 /*Home Page*/
 .browse-by a, h3 {
-    font-family: "Bebas Neue", sans-serif;
     font-size: 2em;
     color: whitesmoke;
     text-decoration: none;
     
 }
 .browse-by a:hover {
-    font-family: "Bebas Neue", sans-serif;
     font-size: 2em;
-    color: #a2bee8;
+    text-decoration: underline;
 }
 .index {
     background-color:#a2bee8;
@@ -93,7 +115,6 @@ html, body, #root {
     background: #3f6aab;
 }
 .index a {
-    font-family: "Bebas Neue", sans-serif;
     text-decoration: none;
     color:#181818;
 }
@@ -112,11 +133,15 @@ html, body, #root {
     text-decoration: none;
 }
 .card-popover h6 {
-    font-family: "Bebas Neue", sans-serif;
     color:#3f6aab;
 }
+.accordion-body {
+    font-family: "Roboto", sans-serif;
+    font-size: 0.85em;
+    color: #181818;
+}
 .accordion-body a {
-    font-family: "Bebas Neue", sans-serif;
+    font-size: 1.25em;
     color:#3f6aab;
 }
 .accordion-body a:hover {
@@ -142,7 +167,6 @@ html, body, #root {
 }
 .panel-wrapper {
     background-color: #181818;
-    font-family: "Bebas Neue", sans-serif;
     color: whitesmoke;
     padding: 0;
 }
