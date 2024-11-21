@@ -9,6 +9,7 @@ export class Film {
   releaseYear: number;
   directoryPath: string;
   imageUrl: string;
+  backdropUrl: string;
   filmPath: string;
   synopsis: string;
 
@@ -20,6 +21,7 @@ export class Film {
     releaseYear: number,
     directoryPath: string,
     imageUrl: string,
+    backdropUrl: string,
     filmPath: string,
     synopsis: string
   ) {
@@ -30,6 +32,7 @@ export class Film {
     this.releaseYear = releaseYear;
     this.directoryPath = directoryPath;
     this.imageUrl = imageUrl;
+    this.backdropUrl = backdropUrl;
     this.filmPath = filmPath;
     this.synopsis = synopsis;
   }
