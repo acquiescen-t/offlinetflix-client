@@ -53,6 +53,10 @@ const NavBar = () => {
           </div>
         </div>
       </nav>
+      <div className="disclaimer text-center p-2">
+        This website uses TMDB and the TMDB APIs but is not endorsed, certified,
+        or otherwise approved by TMDB.
+      </div>
     </>
   );
 };
