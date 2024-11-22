@@ -4,6 +4,10 @@ import api from "../api";
 import { useLocation } from "react-router-dom";
 import ReactPlayer from "react-player/lazy";
 
+function syncFilmData(): void {
+  console.log("Syncing film data.");
+}
+
 const WatchFilm = () => {
   const location = useLocation();
   const { hash, pathname, search } = location;
@@ -30,8 +34,8 @@ const WatchFilm = () => {
   console.log(film);
 
   return (
-    <div className="film-page row p-4">
-      <div className="player-wrapper col-10">
+    <div id="film-page" className="film-page ps-4">
+      <div className="player-wrapper row col-12 mb-3">
         <ReactPlayer
           className="react-player"
           controls={true}
@@ -40,26 +44,20 @@ const WatchFilm = () => {
           height="100%"
         />
       </div>
-      <div className="panel-wrapper card col-2">
-        <div className="card-body">
-          <div className="film-title-container">
-            <h4>
-              {film?.name
-                .concat(" (")
-                .concat(film.releaseYear.toString())
-                .concat(")")}
-            </h4>
+      <div className="panel-wrapper card card-body">
+        <div id="film-page" className="row p-4">
+          <div className="col-5 title-synopsis-container">
+            <h2>{`${film?.name} (${film?.releaseYear.toString()})`}</h2>
+            <br />
+            <p>{film?.synopsis}</p>
+            <br />
+            <a className="btn btn-primary" onClick={syncFilmData}>
+              Sync
+            </a>
           </div>
-          <br />
-
-          <div className="film-synopsis-container">
-            <p className="card-text">{film?.synopsis}</p>
-          </div>
-
-          <br />
-          <div className="genre-container">
-            <h4>GENRES</h4>
-            <ul>
+          <div className="col-7 genre-star-container">
+            <div className="genre-container mb-3">
+              <h4>GENRES</h4>
               {film?.genresOfFilm
                 .sort((g1, g2) => {
                   if (g1.name > g2.name) {
@@ -72,33 +70,28 @@ const WatchFilm = () => {
                   return 0;
                 })
                 .map((genre) => (
-                  <li key={genre.id}>
-                    <a
-                      href={"/genres/".concat(genre.name)}
-                      className="badge text-bg-primary"
-                    >
-                      {genre.name}
-                    </a>
-                  </li>
-                ))}
-            </ul>
-          </div>
-          <br />
-
-          <div className="star-container">
-            <h4>STARS</h4>
-            <ul>
-              {film?.starsOfFilm.map((star) => (
-                <li>
                   <a
-                    href={"/stars/".concat(star.name)}
+                    key={genre.id}
+                    href={"/genres/".concat(genre.name)}
                     className="badge text-bg-primary"
                   >
-                    {star.name}
+                    {genre.name}
                   </a>
-                </li>
+                ))}
+            </div>
+
+            <div className="star-container">
+              <h4>STARS</h4>
+              {film?.starsOfFilm.map((star) => (
+                <a
+                  key={star.id}
+                  href={"/stars/".concat(star.name)}
+                  className="badge text-bg-primary"
+                >
+                  {star.name}
+                </a>
               ))}
-            </ul>
+            </div>
           </div>
         </div>
       </div>
