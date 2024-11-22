@@ -76,15 +76,11 @@ html, body, #root {
     color: whitesmoke;
     text-decoration: underline;
 }
-
-.carousel-film-name {
-    height: 20%;
-}
 .carousel-film-name-link {
     font-size: 2em;
 }
-
 .carousel-film-synopsis {
+    font-size: 0.8em;
     height: 45%;
 }
 .carousel-film-lists {
@@ -159,33 +155,25 @@ html, body, #root {
 }
 
 /*Watch Page*/
-.film-page {
-    width: 100vw;
-}
-.card-body a + a {
-    margin: 10px;
+#film-page {
+    margin: 0px;
+    width: 100%;
 }
 .panel-wrapper {
+    width: 98.5%;
     background-color: #181818;
-    color: whitesmoke;
-    padding: 0;
 }
-.genre-container ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    line-height: 160%;
+.panel-wrapper p {
+    font-family: Helvetica, sans-serif;
+    font-size: 0.9em;
 }
-.genre-container a {
-    text-decoration: none;
-    font-size: .75em;
-}
-
-/*Test Container*/
-.test-container {
-    border: 5px solid red;
-    padding: 5px;
-}
-.test-container span + span {
+.panel-wrapper a + a {
     margin-left: 10px;
+}
+.genre-star-container ul {
+    padding: 0;
+}
+.genre-star-container a {
+    text-decoration: none;
+    font-size: .9em;
 }
