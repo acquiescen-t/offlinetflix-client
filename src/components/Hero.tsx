@@ -3,6 +3,7 @@ import { Film } from "../model/Film";
 import api from "../api";
 import errorImg from "../assets/web/poster-not-found.jpg";
 import { Link } from "react-router-dom";
+import config from "../Config";
 
 const Hero = () => {
   const [activeSlide, setActiveSlide] = useState(0);
@@ -125,25 +126,20 @@ const Hero = () => {
         </button>
       </div>
       <div className="carousel-description col-3 ms-5">
-        <div className="carousel-film-name row align-items-center">
-          <Link
-            className="carousel-film-name-link"
-            to={"http://localhost:5173/films/".concat(
-              featuredFilms[activeSlide]?.id
-            )}
-          >
-            {featuredFilms[activeSlide]?.name}
-          </Link>
-        </div>
-        <div className="carousel-film-synopsis row align-items-center">
-          <p>{featuredFilms[activeSlide]?.synopsis}</p>
-        </div>
+        <Link
+          className="carousel-film-name-link"
+          to={`${config.webUrl}/films/${featuredFilms[activeSlide]?.id}`}
+        >
+          {featuredFilms[activeSlide]?.name}
+        </Link>{" "}
+        <br /> <br /> <p>{featuredFilms[activeSlide]?.synopsis}</p> <br />{" "}
         <div className="carousel-film-lists row pt-3">
           <div className="carousel-film-genres col-6">
+            <h3>GENRES</h3>
             <ul>
               {featuredFilms[activeSlide]?.genresOfFilm.map((genre) => (
                 <li key={genre.id}>
-                  <Link to={"http://localhost:5173/genres/".concat(genre.name)}>
+                  <Link to={`${config.webUrl}/genres/${genre.name}`}>
                     {genre.name}
                   </Link>
                 </li>
@@ -154,7 +150,7 @@ const Hero = () => {
             <ul>
               {featuredFilms[activeSlide]?.starsOfFilm.map((star) => (
                 <li>
-                  <Link to={"http://localhost:5173/stars/".concat(star.name)}>
+                  <Link to={`${config.webUrl}stars/${star.name}`}>
                     {star.name}
                   </Link>
                 </li>

@@ -1,4 +1,5 @@
 import { Link, useRouteError } from "react-router-dom";
+import config from "./Config";
 
 export default function ErrorPage() {
   const error = useRouteError();
@@ -13,7 +14,7 @@ export default function ErrorPage() {
       <div>
         {errorMessage}
         <br />
-        <Link to="http://localhost:5173/">Return to Home</Link>
+        <Link to={config.webUrl}>Return to Home</Link>
       </div>
     </div>
   );
