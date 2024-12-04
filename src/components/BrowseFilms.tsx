@@ -7,7 +7,7 @@ const BrowseFilms = () => {
   const [films, setFilms] = useState<Film[]>([]);
   useEffect(() => {
     api
-      .get("/films")
+      .get("/films/get-random/4")
       .then((response) => {
         setFilms(response.data);
       })
@@ -16,20 +16,13 @@ const BrowseFilms = () => {
       });
   }, []);
 
-  // Randomly select 4 films
-  let shuffled = films
-    .map((value) => ({ value, sort: Math.random() }))
-    .sort((a, b) => a.sort - b.sort)
-    .map(({ value }) => value)
-    .slice(0, Math.min(films.length, 4));
-
   return (
     <div className="container pb-5">
-      <div className="browse-by py-3">
+      <div className="browse-by py-2">
         <a href="/films">Browse By Films</a>
       </div>
       <div className="row g-5">
-        {shuffled.map((item) => (
+        {films.map((item) => (
           <div key={item.id} className="col-3">
             <Card film={item}></Card>
           </div>
