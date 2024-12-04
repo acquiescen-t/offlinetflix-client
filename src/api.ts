@@ -3,9 +3,14 @@ import config from './Config';
 
 const api = axios.create({
     baseURL: config.backendApiUrl,
-    headers: {
-        "ngrok-skip-browser-warning": "69420",
+    auth: {
+        username: config.apiUsername,
+        password: config.apiPassword
     },
+    headers: {
+        "ngrok-skip-browser-warning": "true"
+    },
+    withCredentials: true
 });
 
 // api.interceptors.request.use(
