@@ -1,22 +1,19 @@
 import { useEffect, useState } from "react";
 import { Film } from "../model/Film";
-import api from "../api";
+import internalApi from "../InternalApi";
 import { useLocation } from "react-router-dom";
 import ReactPlayer from "react-player/lazy";
-
-function syncFilmData(): void {
-  console.log("Syncing film data.");
-}
+import Card from "../components/Card";
+import Config from "../Config";
 
 const WatchFilm = () => {
   const location = useLocation();
   const { hash, pathname, search } = location;
-
   var filmId = pathname.replaceAll("/films/", "");
 
   const [film, setFilm] = useState<Film>();
   useEffect(() => {
-    api
+    internalApi
       .get("/films/id/".concat(filmId))
       .then((response) => {
         setFilm(response.data);
@@ -47,13 +44,20 @@ const WatchFilm = () => {
       <div className="panel-wrapper card card-body">
         <div id="film-page" className="row p-4">
           <div className="col-5 title-synopsis-container">
-            <h2>{`${film?.name} (${film?.releaseYear.toString()})`}</h2>
-            <br />
-            <p>{film?.synopsis}</p>
-            <br />
-            <a className="btn btn-primary" onClick={syncFilmData}>
-              Sync
-            </a>
+            <div className="film-title pb-4">
+              <h2>{`${film?.name} (${film?.releaseYear.toString()})`}</h2>
+            </div>
+            <div className="film-synopsis pb-4">
+              <p>{film?.synopsis}</p>
+            </div>
+            <div className="film-sync">
+              <a
+                href={`${Config.webUrl}/films/${film?.id}/sync`}
+                className="btn btn-primary"
+              >
+                Sync
+              </a>
+            </div>
           </div>
           <div className="col-7 genre-star-container">
             <div className="genre-container mb-3">
@@ -80,16 +84,12 @@ const WatchFilm = () => {
                 ))}
             </div>
 
-            <div className="star-container">
+            <div className="star-container row g-2">
               <h4>STARS</h4>
-              {film?.starsOfFilm.map((star) => (
-                <a
-                  key={star.id}
-                  href={"/stars/".concat(star.name)}
-                  className="badge text-bg-primary"
-                >
-                  {star.name}
-                </a>
+              {film?.starsOfFilm.map((item) => (
+                <div key={item.id} className="col-3">
+                  <Card star={item}></Card>
+                </div>
               ))}
             </div>
           </div>
