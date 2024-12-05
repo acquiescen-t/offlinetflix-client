@@ -13,6 +13,10 @@ html, body, #root {
     height: 100%;
 }
 
+.invisible-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+
 /*Navigation bar*/
 .container-fluid {
     height: 50px;
@@ -40,33 +44,33 @@ html, body, #root {
     color: whitesmoke;
 }
 
-
 /*Hero*/
 #hero {
     margin: 0px;
 }
 .hero {
-    height: 575px;
+    height: 600px;
 }
 .carousel {
     padding: 0px;
+    margin: 0;
 }
 .carousel-gradient {
     height: 100%;
     width: 100%;
-    background-image: linear-gradient(to top, black 5%, transparent);
+    background-image: linear-gradient(to top, black 1%, transparent);
     position: absolute;
 }
+
 .carousel-description {
+    margin: 0;
+    background-color: #181818;
+    opacity: 90%;
     height: 100%;
 }
-.carousel-description p {
-    font-family: "Roboto", sans-serif;
-}
-.carousel-description ul {
-    list-style-type:none;
-    margin: 0;
-    padding: 0;
+
+.carousel-film-name-link {
+    font-size: 2em;
 }
 .carousel-description a {
     color: whitesmoke;
@@ -76,19 +80,36 @@ html, body, #root {
     color: whitesmoke;
     text-decoration: underline;
 }
-.carousel-film-name-link {
-    font-size: 2em;
-}
-.carousel-film-synopsis {
+
+.carousel-film-synopsis p {
+    font-family: "Roboto", sans-serif;
     font-size: 0.8em;
-    height: 45%;
-}
-.carousel-film-lists {
-    height: 35%;
 }
 
+.carousel-film-lists {
+    height: 70%;
+}
+.carousel-description ul {
+    list-style-type: none;
+    margin: 3px 0;
+    padding: 0;
+}
+.carousel-film-genres, .carousel-film-stars {
+    height: 80%;
+}
+.star-list {
+    height: 80%;
+    overflow: auto;
+}
+.star-list a {
+    font-family: "Roboto", sans-serif;
+    font-size: 0.8em;
+    overflow: auto;
+}
+
+
 /*Home Page*/
-.browse-by a, h3 {
+.browse-by a {
     font-size: 2em;
     color: whitesmoke;
     text-decoration: none;
@@ -152,6 +173,10 @@ html, body, #root {
     align-items: center;
     width: 100vw;
     height: 100vh;
+    color:#181818;
+}
+.error-page p {
+    color: #181818;
 }
 
 /*Watch Page*/
@@ -168,6 +193,7 @@ html, body, #root {
     font-size: 0.9em;
 }
 .panel-wrapper a + a {
+    margin-bottom: 5px;
     margin-left: 10px;
 }
 .genre-star-container ul {
