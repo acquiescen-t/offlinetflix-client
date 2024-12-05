@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import api from "../api";
+import api from "../InternalApi";
 import Card from "../components/Card";
 import { Star } from "../model/Star";
 

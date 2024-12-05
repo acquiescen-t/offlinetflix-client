@@ -1,5 +1,5 @@
 import Card from "../components/Card";
-import api from "../api";
+import api from "../InternalApi";
 import { useState, useEffect } from "react";
 import { Film } from "../model/Film";
 import { useParams } from "react-router-dom";
