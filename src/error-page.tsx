@@ -12,7 +12,7 @@ export default function ErrorPage() {
   return (
     <div className="error-page text-center" id="error-page">
       <div>
-        {errorMessage}
+        <p>{errorMessage}</p>
         <br />
         <Link to={config.webUrl}>Return to Home</Link>
       </div>
