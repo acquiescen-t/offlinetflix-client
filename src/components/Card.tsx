@@ -3,7 +3,8 @@ import { Genre } from "../model/Genre";
 import { Star } from "../model/Star";
 import errorImg from "../assets/web/poster-not-found.jpg";
 import { useState, useEffect } from "react";
-import api from "../api";
+import api from "../InternalApi";
+import config from "../Config";
 
 declare var bootstrap: any;
 
@@ -145,7 +146,7 @@ const Card = (props: Props) => {
         <div role="button" className="card-btn">
           <div className="index card">
             <img
-              src={imageUrl}
+              src={`${config.externalWebUrl}/t/p/w300_and_h450_bestv2/${imageUrl}`}
               className="card-img-top mx-auto d-block"
               alt="imageUrl"
               onError={({ currentTarget }) => {
@@ -155,7 +156,12 @@ const Card = (props: Props) => {
             />
             <div className="index card-body">
               <h6 className="index card-title">
-                <a className="stretched-link">{name}</a>
+                <a
+                  href={`${config.webUrl}/stars/${name.replaceAll(" ", "-")}`}
+                  className="stretched-link"
+                >
+                  {name}
+                </a>
               </h6>
             </div>
           </div>
