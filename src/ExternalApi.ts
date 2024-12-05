@@ -2,15 +2,11 @@ import axios from 'axios';
 import config from './Config';
 
 const api = axios.create({
-    baseURL: config.backendApiUrl,
-    auth: {
-        username: config.apiUsername,
-        password: config.apiPassword
-    },
+    baseURL: config.externalApiUrl,
     headers: {
-        "ngrok-skip-browser-warning": "true"
+        accept: "application/json",
+        Authorization: config.token
     },
-    withCredentials: true
 });
 
 // api.interceptors.request.use(
