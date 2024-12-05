@@ -32,6 +32,10 @@ const router = createBrowserRouter([
         element: <WatchFilm />,
       },
       {
+        path: "films/:filmId/sync",
+        element: <Sync />,
+      },
+      {
         path: "genres/",
         element: <Genres />,
       },
@@ -43,10 +47,6 @@ const router = createBrowserRouter([
         path: "stars/",
         element: <Stars />,
       },
-      // {
-      //   path: "sync/",
-      //   element: <Sync />,
-      // },
       {
         path: "test/",
         element: <TestPage />,
