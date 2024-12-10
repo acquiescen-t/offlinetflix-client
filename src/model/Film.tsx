@@ -6,6 +6,7 @@ export class Film {
   genresOfFilm: Genre[];
   starsOfFilm: Star[];
   name: string;
+  tmdb_id: number;
   releaseYear: number;
   directoryPath: string;
   imageUrl: string;
@@ -18,6 +19,7 @@ export class Film {
     genresOfFilm: Genre[],
     starsOfFilm: Star[],
     name: string,
+    tmdb_id: number,
     releaseYear: number,
     directoryPath: string,
     imageUrl: string,
@@ -29,6 +31,7 @@ export class Film {
     this.genresOfFilm = genresOfFilm;
     this.starsOfFilm = starsOfFilm;
     this.name = name;
+    this.tmdb_id = tmdb_id;
     this.releaseYear = releaseYear;
     this.directoryPath = directoryPath;
     this.imageUrl = imageUrl;
